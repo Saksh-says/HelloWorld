@@ -4,19 +4,19 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Saksh-says/HelloWorld.git'
+                git branch: 'main', url: 'https://github.com/Saksh-says/HelloWorld.git'
             }
         }
 
-        stage('Compile') {
+        stage('Build Docker Image') {
             steps {
-                sh 'javac HelloWorld.java'
+                sh 'docker build -t hello-world-java .'
             }
         }
 
-        stage('Execute') {
+        stage('Run Docker Container') {
             steps {
-                sh 'java HelloWorld'
+                sh 'docker run --rm hello-world-java'
             }
         }
     }
